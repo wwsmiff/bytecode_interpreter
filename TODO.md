@@ -1,5 +1,5 @@
 ### Near-Future roadmap
-- [ ] Add support for hexadecimal and binary notations
+- [x] Add support for hexadecimal and binary notations
 - [x] Add proper checks to avoid crashes
 - [x] Add error messages
 - [ ] Allow setting precision when printing a floating-point register
