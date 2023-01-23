@@ -1,7 +1,7 @@
 ### Near-Future roadmap
-- [ ] Adding support for hexadecimal and binary notations
-- [ ] Adding proper checks to avoid crashes
-- [ ] Adding error messages
+- [ ] Add support for hexadecimal and binary notations
+- [ ] Add proper checks to avoid crashes
+- [ ] Add error messages
 - [ ] Allow setting precision when printing a floating-point register
 - [ ] Add support for comments
 - [ ] Adding other basic operations
