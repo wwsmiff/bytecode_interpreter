@@ -23,6 +23,12 @@ void Parser::parse(const std::string &line)
 			return;
 		}
 
+		if(line.find(';') == std::string::npos)
+		{
+			std::cout << "Expected a semicolon ';' at the end of the instruction\n";
+			exit(1);
+		}
+
 		while(line[strIndex] != ';')
 		{
 			while(line[strIndex] != ' ')
@@ -31,6 +37,7 @@ void Parser::parse(const std::string &line)
 				strIndex++;
 			}
 
+			
 			while(line[strIndex] != ',' && line[strIndex] != ';')
 			{
 				if(line[strIndex] != ' ')
@@ -74,11 +81,26 @@ void Parser::parse(const std::string &line)
 			instruction |= static_cast<uint64_t>(0x4000'0000'0000'0000);
 		}
 
-		instruction |= (static_cast<uint64_t>(OPERATION_MAP.at(operation)) << 48) & 0x7FFF'0000'0000'0000;
+		try
+		{
+			instruction |= (static_cast<uint64_t>(OPERATION_MAP.at(operation)) << 48) & 0x7FFF'0000'0000'0000;
+		}
+		catch(...)
+		{
+			std::cout << "Specified operation: \"" << operation << "\" does not exist\n";
+			exit(1);
+		}
 
-		if(isFloat) instruction |= (static_cast<uint64_t>(FP_REGISTER_MAP.at(reg)) << 32) & 0x0000'FFFF'0000'0000;
-		else instruction |= (static_cast<uint64_t>(REGISTER_MAP.at(reg)) << 32) & 0x0000'FFFF'0000'0000;
-
+		try
+		{
+			if(isFloat) instruction |= (static_cast<uint64_t>(FP_REGISTER_MAP.at(reg)) << 32) & 0x0000'FFFF'0000'0000;
+			else instruction |= (static_cast<uint64_t>(REGISTER_MAP.at(reg)) << 32) & 0x0000'FFFF'0000'0000;
+		}
+		catch(...)
+		{
+			std::cout << "Specified register: \"" << reg << "\" does not exist\n";
+			exit(1);
+		}
 		if(isReg && !data.empty() && !isFloat) 
 		{
 			instruction |= (static_cast<uint64_t>(REGISTER_MAP.at(data))) & 0x0000'0000'FFFF'FFFF;
@@ -91,7 +113,22 @@ void Parser::parse(const std::string &line)
 
 		else if(!isReg && !data.empty() && !isFloat)
 		{
-			instruction |= std::stoi(data) & 0x0000'0000'FFFF'FFFF;
+			if(data[0] == '0' && (data[1] == 'X' || data[1] == 'x'))
+			{
+				data.erase(0, 2);
+				uint32_t hex_data = std::stoul(data, nullptr, 16);
+				instruction |= hex_data & 0x0000'0000'FFFF'FFFF;
+			}
+			else if(data[0] == '0' && (data[1] == 'B' || data[1] == 'b'))
+			{
+				data.erase(0, 2);
+				uint32_t bin_data = std::stoul(data, nullptr, 2);
+				instruction |= bin_data & 0x0000'0000'FFFF'FFFF;
+			}
+			else
+			{
+				instruction |= std::stoi(data) & 0x0000'0000'FFFF'FFFF;
+			}
 		}
 
 		else if(!isReg && !data.empty() && isFloat)
