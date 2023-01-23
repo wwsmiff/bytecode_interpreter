@@ -12,13 +12,13 @@
 - It has 8 floating-point registers (32-bit) named `FPR1..FPR8`.
 
 ### Structure of the assembly code
-`OPERATION DEST, SOURCE`. The accepted data are integer literals and floating-point literals and other registers. Accessing the data stored in a register: `OPERATION REGISTER, $REGISTER`. 
+`OPERATION DEST, SOURCE`. The accepted data are integer literals and floating-point literals and other registers. For accessing the data stored in a register: `OPERATION REGISTER, $REGISTER`. 
 
 ### CPU Flags
 As mentioned above, the 8 rightmost bits are used for CPU Flags. 
 
 **FROM RIGHT TO LEFT**:
-1. REGISTER_FLAG - Tells the CPU if the data is a literal or if should retrieve data from a register.
+1. REGISTER_FLAG - Tells the CPU if the data is a literal or if it should retrieve data from a register.
 2. FLOAT_FLAG - Tells the CPU if the current instruction consists of floating-point data and operations.
 
 
