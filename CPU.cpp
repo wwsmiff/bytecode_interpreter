@@ -75,7 +75,16 @@ void CPU::execute()
 				break;
 
 			case FPRINT:
-				std::cout << FP_REGISTER_TABLE[reg - 1]  << ": " << std::fixed << std::setprecision(5) <<  mFPRegisters[reg - 1] << std::endl;
+				if(fdata != 0)
+				{
+					std::cout << FP_REGISTER_TABLE[reg - 1]  << ": " << std::fixed << std::setprecision(data) <<  mFPRegisters[reg - 1] << std::endl;
+					break;
+				}			
+				else
+				{
+					std::cout << FP_REGISTER_TABLE[reg - 1]  << ": " << std::fixed << std::setprecision(2) <<  mFPRegisters[reg - 1] << std::endl;
+					break;
+				}
 				break;
 			case FMOV:
 				mFPRegisters[reg - 1] = fdata;

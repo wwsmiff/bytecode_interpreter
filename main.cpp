@@ -1,11 +1,19 @@
 #include <iostream>
 #include "CPU.hpp"
 
-int main(void)
+int main(int argc, char *argv[])
 {
 	CPU noah;
-	noah.readFile("test.asm");
-	noah.execute();
-
+	
+	if(argc < 2)
+	{
+		std::cout << "Usage: ./main <filename>\n";
+	}
+	else
+	{
+		noah.readFile(argv[1]);
+		noah.execute();
+	}
+	
 	return 0;
 }

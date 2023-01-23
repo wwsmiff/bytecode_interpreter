@@ -131,11 +131,15 @@ void Parser::parse(const std::string &line)
 			}
 		}
 
-		else if(!isReg && !data.empty() && isFloat)
+		else if(!isReg && !data.empty() && isFloat && operation != "FPRINT")
 		{
 			float ff = std::stof(data);
 			uint32_t ffToUint = *(reinterpret_cast<uint32_t*>(&ff)); 
 			instruction |= ffToUint & 0x0000'0000'FFFF'FFFF;
+		}
+		else if(!isReg && !data.empty() && isFloat && operation == "FPRINT")
+		{
+			instruction |= std::stoi(data) & 0x0000'0000'FFFF'FFFF;
 		}
 		else
 		{
