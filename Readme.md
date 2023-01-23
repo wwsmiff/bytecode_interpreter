@@ -36,4 +36,4 @@ As mentioned above, the 8 rightmost bits are used for CPU Flags.
 	- `FSUB` - Subtracts a floating-point value from a register.
 	- `FMUL` - Multiplies a floating-point value to a register.
 	- `FDIV` - Divides a floating-point value by a register.
-	- `FPRINT` - Prints the floating-point register's name and its value.
+	- `FPRINT` - Prints the floating-point register's name and its value. Optionally takes an integer value for precision.
