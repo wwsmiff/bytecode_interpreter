@@ -1,5 +1,5 @@
 ### Near-Future roadmap
-- [ ] Adding proper checks to avoid bugs
+- [ ] Adding proper checks to avoid crashes
 - [ ] Allow setting precision when printing a floating-point register
 - [ ] Add support for comments
 - [ ] Adding other basic operations
